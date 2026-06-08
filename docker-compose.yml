@@ -1,4 +1,3 @@
-version: '3.9'
 services:
   db:
     image: postgres:17-alpine
@@ -16,20 +15,22 @@ services:
     image: dpage/pgadmin4
     container_name: pgadmin
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@correo.com
-      PGADMIN_DEFAULT_PASSWORD: admin123
+      PGADMIN_DEFAULT_EMAIL: steven@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: stev123
     ports:
       - "8080:80"
     depends_on:
       - db
 
   app:
-    # REEMPLAZA tu_usuario_de_github AQUÍ (en minúsculas)
-    image: ghcr.io/tu_usuario_de_github/devops-flask-postgres:2.0.0
+    # Le decimos que construya usando el Dockerfile de esta carpeta
+    build: .
+    image: ghcr.io/bryanstevenliga/devops-flask-postgres:2.0.0
     container_name: flaskapp
     ports:
       - "5000:5000"
     depends_on:
       - db
+
 volumes:
   postgres_data:
